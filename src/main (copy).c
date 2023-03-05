@@ -17,9 +17,13 @@ t_point intersection(int x, int y, int angle)
 {
 	t_point	p;
 	float	tanValue = tan(angle * M_PI / 180);
+	int x1;
+	int y1;
 
 	p.x = 0;
 	p.y = 0;
+	x1 = 0;
+	y1 = 0;
 	if (angle == 0 || angle == 180)
 	{
 		p.x = x;
@@ -32,31 +36,61 @@ t_point intersection(int x, int y, int angle)
 	}
 	else if (angle > 0 && angle < 90)
 	{
-		if (tanValue * 100 < (100))
+		if (y % 100 != 0)
 		{
-			p.x = x + tanValue * 100;
-			p.y = y + 100;
+			p.x += tanValue * (100 - (y % 100));
+			p.y += 100 - (y % 100);
 		}
 		else
 		{
-			p.x = x + 100;
-			tanValue = tan((45 - (angle - 45)) * M_PI / 180);
-			p.y = y + tanValue * 100;
+			p.x += tanValue * 100;
+			p.y += 100;
+		}
+		tanValue = tan(45 - (angle - 45)) * M_PI / 180;
+		if (x % 100 != 0)
+		{
+			y1 += tanValue * (100 - (x % 100));
+			x1 += 100 - (x % 100);
+		}
+		else
+		{
+			y1 += tanValue * 100;
+			x1 += 100;
+		}
+		if (distance(x, y, x1, y1) < distance(x, y, p.x, p.y))
+		{
+			p.x = x;
+			p.y = y;
 		}
 	}
 	else if (angle > 90 && angle < 180)
 	{
-		tanValue = tan((angle - 90) * M_PI / 180);
-		if (tanValue * 100 < (100))
+		tanValue = tan((45 - (angle - 135)) * M_PI / 180);
+		if (y % 100 != 0)
 		{
-			p.x = x + 100;
-			p.y = y - tanValue * 100;
+			p.x += tanValue * (y % 100);
+			p.y -= y % 100;
 		}
 		else
 		{
-			tanValue = tan((45 - (angle - 135)) * M_PI / 180);
-			p.x = x + tanValue * 100;
-			p.y = y - 100;
+			p.x += tanValue * 100;
+			p.y -= 100;
+		}
+		tanValue = tan((angle - 90) * M_PI / 180);
+		if (x % 100 != 0)
+		{
+			y1 -= tanValue * (x % 100);
+			x1 += x % 100;
+		}
+		else
+		{
+			y1 -= tanValue * 100;
+			x1 -= 100;
+		}
+		if (distance(x, y, x1, y1) < distance(x, y, p.x, p.y))
+		{
+			p.x = x;
+			p.y = y;
 		}
 	}
 	else if (angle > 180 && angle < 270)
