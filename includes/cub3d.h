@@ -9,6 +9,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 
 #define WINDOW_WIDTH 2000
 #define WINDOW_HEIGHT 1500
@@ -42,6 +43,7 @@ typedef struct s_data
 	void	*mlx_win;
 	int		posx;
 	int		posy;
+	int		angle;
 	char	**map;
     t_img	img;
 	int		win_width;

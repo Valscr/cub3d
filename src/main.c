@@ -1,5 +1,51 @@
 #include "../includes/cub3d.h"
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
+t_point intersection(int x, int y, int angle) {
+    t_point point;
+    double pi = 3.14159265358979323846;
+    double radian = angle * pi / 180.0;  // Conversion degré vers radian
+    double tan_val = tan(radian);
+    double cot_val = 1.0 / tan_val;
+    double dx, dy;
+    int new_x, new_y;
+
+    // Intersection avec la ligne verticale passant par x
+    if (angle == 90 || angle == 270) {
+        point.x = x;
+        point.y = (angle == 90) ? y + 1 : y - 1;
+    } else {
+        dx = (angle > 90 && angle < 270) ? -1.0 : 1.0;
+        new_x = (int) (x + dx);
+        dy = dx * tan_val;
+        new_y = (int) round(y + dy);
+        point.x = new_x;
+        point.y = new_y;
+    }
+
+    // Intersection avec la ligne horizontale passant par y
+    if (angle == 0 || angle == 180) {
+        point.x = (angle == 0) ? x + 1 : x - 1;
+        point.y = y;
+    } else {
+        dy = (angle > 0 && angle < 180) ? -1.0 : 1.0;
+        new_y = (int) (y + dy);
+        dx = dy * cot_val;
+        new_x = (int) round(x + dx);
+        if (abs(new_x - x) < abs(point.x - x) && abs(new_y - y) < abs(point.y - y)) {
+            point.x = new_x;
+            point.y = new_y;
+        }
+    }
+
+    return point;
+}
+
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char    *pixel;
@@ -72,18 +118,77 @@ int	end(t_data *game)
 	return (0);
 }
 
+int	check_wall(int x, int y, t_data *game)
+{
+	printf("x = %d y = %d", x, y);
+	if (game->map[y / 100 - 1][x / 100 - 1] == '1')
+		return (1);
+	return (0);
+}
+
+double distance(int x, int y, int x2, int y2)
+{
+    double dx = x2 - x;
+    double dy = y2 - y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+int	render(t_data *game)
+{	
+	int	i;
+	t_point p;
+
+	i = 0;
+	p.x = game->posx;
+	p.y = game->posy;
+	while (i <= 90)
+	{
+		while (!check_wall(p.x, p.y, game))
+			p = intersection(p.x, p.y, game->angle + i);
+		double d = distance(game->posx, game->posy, p.x, p.y);
+		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 90) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), 1, (WINDOW_HEIGHT / d) * 100, WHITE_PIXEL});
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
+		i++;
+	}
+	return (0);
+}
+
 int	mykey_hook(int keycode, t_data *game)
 {	
 	if (keycode == XK_Escape)
 		end(game);
+	if (keycode == XK_w)
+	{
+		game->posy -= 50;
+		render(game);
+	}
+	if (keycode == XK_d)
+	{
+		game->posx += 50;
+		render(game);
+	}
+	if (keycode == XK_a)
+	{
+		game->posx -= 50;
+		render(game);
+	}
+	if (keycode == XK_s)
+	{
+		game->posy += 50;
+		render(game);
+	}
+	if (keycode == XK_r)
+	{
+		game->angle += 20;
+		render(game);
+	}
 	return (0);
 }
 
 int	render_next_frame(t_data *game)
 {
 	render_background(&game->img, BLACK_PIXEL);
-	render_rect(&game->img, (t_rect){0 + (WINDOW_WIDTH / 90), 100, 10, 1000, WHITE_PIXEL});
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
+	render(game);
 	return (0);
 }
 
@@ -150,6 +255,9 @@ int	main(int argc, char **argv)
 	{
         game.win_width = 1000;
         game.win_height = 1000;
+		game.posx = 750;
+		game.posy = 500;
+		game.angle = 0;
         while (game.map[i])
             printf("%s\n", game.map[i++]);
         game.mlx = mlx_init();
