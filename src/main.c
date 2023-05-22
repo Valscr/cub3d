@@ -20,73 +20,115 @@ t_point intersection(int x, int y, int angle)
 
 	p.x = 0;
 	p.y = 0;
+	int xlen = 0;
+	int ylen = 0;
 	if (angle == 0 || angle == 180)
 	{
+		if (y % 100 != 0)
+			ylen = y % 100;
+		else if (y == 0)
+			ylen = 0;
+		else
+			ylen = 100;
 		p.x = x;
-		p.y = angle == 0 ? (y + 100) : (y - 100);
+		p.y = angle == 0 ? (y + (100 - (y % 100))) : (y - (ylen));
 	}
 	else if (angle == 90 || angle == 270)
 	{
-		p.x = angle == 90 ? (x + 100) : (x - 100);
+		if (x % 100 != 0)
+			xlen = x % 100;
+		else if (x == 0)
+			xlen = 0;
+		else
+			xlen = 100;
+		p.x = angle == 90 ? (x + (100 - (x % 100))) : (x - (xlen));
 		p.y = y;
 	}
 	else if (angle > 0 && angle < 90)
 	{
-		if (tanValue * 100 < (100))
+		xlen = 100 - (x % 100);
+		ylen = 100 - (y % 100);
+		if (tanValue * ylen < (xlen))
 		{
-			p.x = x + tanValue * 100;
-			p.y = y + 100;
+			p.x = x + tanValue * ylen;
+			p.y = y + ylen;
 		}
 		else
 		{
-			p.x = x + 100;
+			p.x = x + xlen;
 			tanValue = tan((45 - (angle - 45)) * M_PI / 180);
-			p.y = y + tanValue * 100;
+			p.y = y + tanValue * xlen;
 		}
 	}
 	else if (angle > 90 && angle < 180)
 	{
+		xlen = 100 - (x % 100);
+		if (y % 100 != 0)
+			ylen = y % 100;
+		else if (y == 0)
+			ylen = 0;
+		else
+			ylen = 100;
 		tanValue = tan((angle - 90) * M_PI / 180);
-		if (tanValue * 100 < (100))
+		if (tanValue * xlen < (ylen))
 		{
-			p.x = x + 100;
-			p.y = y - tanValue * 100;
+			p.x = x + xlen;
+			p.y = y - tanValue * xlen;
 		}
 		else
 		{
 			tanValue = tan((45 - (angle - 135)) * M_PI / 180);
-			p.x = x + tanValue * 100;
-			p.y = y - 100;
+			p.x = x + tanValue * ylen;
+			p.y = y - ylen;
 		}
 	}
 	else if (angle > 180 && angle < 270)
 	{
+		if (x % 100 != 0)
+			xlen = x % 100;
+		else if (x == 0)
+			xlen = 0;
+		else
+			xlen = 100;
+		if (y % 100 != 0)
+			ylen = y % 100;
+		else if (y == 0)
+			ylen = 0;
+		else
+			ylen = 100;
 		tanValue = tan((angle - 180) * M_PI / 180);
-		if (tanValue * 100 < 100)
+		if (tanValue * ylen < xlen)
 		{
-			p.x = x - tanValue * 100;
-			p.y = y - 100;
+			p.x = x - tanValue * ylen;
+			p.y = y - ylen;
 		}
 		else
 		{
 			tanValue = tan((45 - (angle - 225)) * M_PI / 180);
-			p.x = x - 100;
-			p.y = y - tanValue * 100;
+			p.x = x - xlen;
+			p.y = y - tanValue * xlen;
 		}
 	}
 	else if (angle > 270 && angle < 360)
 	{
+		ylen = 100 - (y % 100);
+		if (x % 100 != 0)
+			xlen = x % 100;
+		else if (x == 0)
+			xlen = 0;
+		else
+			xlen = 100;
 		tanValue = tan((angle - 270) * M_PI / 180);
-		if (tanValue * 100 < 100)
+		if (tanValue * xlen < ylen)
 		{
-			p.x = x - 100;
-			p.y = y + tanValue * 100;
+			p.x = x - xlen;
+			p.y = y + tanValue * xlen;
 		}
 		else
 		{
 			tanValue = tan((45 - (angle - 315)) * M_PI / 180);
-			p.x = x - tanValue * 100;
-			p.y = y + 100;
+			p.x = x - tanValue * ylen;
+			p.y = y + ylen;
 		}
 	}
 	return (p);
@@ -133,12 +175,21 @@ void	render_background(t_img *img, int color)
 	int	j;
 
 	i = 0;
-	while (i < WINDOW_HEIGHT)
+	while (i < WINDOW_HEIGHT / 2)
 	{
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
 			img_pix_put(img, j++, i, color);
+		}
+		++i;
+	}
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+		{
+			img_pix_put(img, j++, i, GREY_PIXEL);
 		}
 		++i;
 	}
@@ -164,9 +215,66 @@ int	end(t_data *game)
 	return (0);
 }
 
+int	count_tab(char **str, int x, int y)
+{
+	int	i;
+
+	i = y / 100;
+	if (str[0] == 0)
+		return (i);
+	while (str[i])
+	{
+		if (str[i][x / 100] == '0')
+		{
+			while (str[i][x / 100])
+			{
+				if (str[i][x / 100] == '1')
+					return (i);
+				i++;
+			}
+		}
+		i++;
+	}
+	return (i);
+}
+
+int	count_x(char *str, int x)
+{
+	int	i;
+
+	i = x / 100;
+	while (str[i])
+	{
+		if (str[i] == '0')
+		{
+			while (str[i])
+			{
+				if (str[i] == '1')
+					return (i);
+				i++;
+			}
+			return (i);
+		}
+		i++;
+	}
+	return (i);
+}
+
 int	check_wall(int x, int y, t_data *game)
 {
-	if (game->map[y / 100][x / 100] == '1')
+	int xIndex, yIndex;
+
+	if (x < ((count_x(game->map[y / 100], x) - 1) * 100))
+		xIndex = (int)ceil((double)x / 100);
+	else
+		xIndex = x / 100;
+
+	if (y < (count_tab(game->map, x, y) - 1) * 100)
+		yIndex = (int)ceil((double)y / 100);
+	else
+		yIndex = y / 100;
+	
+	if (game->map[yIndex][xIndex] == '1')
 		return (1);
 	return (0);
 }
@@ -187,9 +295,13 @@ int	render(t_data *game)
 		p.x = game->posx;
 		p.y = game->posy;
 		while (!check_wall(p.x, p.y, game))
+		{
 			p = intersection(p.x, p.y, angle);
+		}
 		double d = distance(game->posx, game->posy, p.x, p.y);
-		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 90) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), 1, (WINDOW_HEIGHT / d) * 100, WHITE_PIXEL});
+		if (d < 100)
+			d = 100;
+		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 90) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), 21, (WINDOW_HEIGHT / d) * 100, BLUE_PIXEL});
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 		if (angle == 359)
 			angle = 0;
@@ -207,29 +319,156 @@ int	render_next_frame(t_data *game)
 	return (0);
 }
 
+t_point calculate_endpoint(double x, double y, double angle, double len)
+{
+    t_point point;
+
+    double angle_rad =  tan(angle * M_PI / 180);
+	point.x = x;
+	point.y = y;
+	printf("angle = %f\n", angle);
+	if (angle == 270)
+	{
+		point.x = x - len;
+		point.y = y;
+	}
+	if (angle == 180)
+	{
+		point.x = x;
+		point.y = y - len;
+	}
+	if (angle == 90)
+	{
+		point.x = x + len;
+		point.y = y;
+	}
+	if (angle == 0)
+	{
+		point.x = x;
+		point.y = y + len;
+	}
+	if (angle > 0 && angle < 90)
+	{
+		if (angle < 45)
+		{
+			point.x = x + len * sin(angle_rad);
+    		point.y = y + len * cos(angle_rad);
+		}
+		else
+		{
+			angle_rad = tan((45 - (angle - 45)) * M_PI / 180);
+			point.x = x + len * sin(angle_rad);
+    		point.y = y + len * cos(angle_rad);
+		}
+	}
+	if (angle > 90 && angle < 180)
+	{
+		angle_rad = tan((angle - 90) * M_PI / 180);
+		if (angle < 135)
+		{
+			point.x = x + len * cos(angle_rad);
+    		point.y = y - len * sin(angle_rad);
+		}
+		else
+		{
+			angle_rad = tan((45 - (angle - 135)) * M_PI / 180);
+			point.x = x + len * cos(angle_rad);
+    		point.y = y - len * sin(angle_rad);
+		}
+	}
+	if (angle > 180 && angle < 270)
+	{
+		angle_rad = tan((angle - 180) * M_PI / 180);
+		if (angle < 225)
+		{
+			point.x = x - len * sin(angle_rad);
+    		point.y = y - len * cos(angle_rad);
+		}
+		else
+		{
+			angle_rad = tan((45 - (angle - 225)) * M_PI / 180);
+			point.x = x - len * sin(angle_rad);
+    		point.y = y - len * cos(angle_rad);
+		}
+	}
+	if (angle > 270 && angle < 360)
+	{
+		angle_rad = tan((angle - 270) * M_PI / 180);
+		if (angle < 315)
+		{
+			point.x = x - len * cos(angle_rad);
+    		point.y = y + len * sin(angle_rad);
+		}
+		else
+		{
+			angle_rad = tan((45 - (angle - 315)) * M_PI / 180);
+			point.x = x - len * cos(angle_rad);
+    		point.y = y + len * sin(angle_rad);
+		}
+	}
+    return point;
+}
+
 int	mykey_hook(int keycode, t_data *game)
 {	
+	t_point point;
+	int angle;
+
+	printf("angle hook = %d\n", game->angle);
 	if (keycode == XK_Escape)
 		end(game);
-	if (keycode == XK_w)
+	if (keycode == XK_Up)
 	{
-		game->posy -= 50;
-		render_next_frame(game);
+		angle = game->angle;
+		point = calculate_endpoint(game->posx, game->posy, angle, 50);
+		if (!check_wall(point.x, point.y, game))
+		{
+			game->posy = point.y;
+			game->posx = point.x;
+			render_next_frame(game);
+		}
 	}
-	if (keycode == XK_d)
+	if (keycode == XK_Right)
 	{
-		game->posx += 50;
-		render_next_frame(game);
+		if (game->angle >= 270)
+			angle = game->angle + 90 - 360;
+		else
+			angle = game->angle + 90;
+		point = calculate_endpoint(game->posx, game->posy, angle, 50);
+		if (!check_wall(point.x, point.y, game))
+		{
+			game->posy = point.y;
+			game->posx = point.x;
+			render_next_frame(game);
+		}
 	}
-	if (keycode == XK_a)
+	if (keycode == XK_Left)
 	{
-		game->posx -= 50;
-		render_next_frame(game);
+		if (game->angle < 90)
+			angle = game->angle - 90 + 360;
+		else
+			angle = game->angle - 90;
+		point = calculate_endpoint(game->posx, game->posy, angle, 50);
+		if (!check_wall(point.x, point.y, game))
+		{
+			game->posy = point.y;
+			game->posx = point.x;
+			render_next_frame(game);
+		}
 	}
-	if (keycode == XK_s)
+	if (keycode == XK_Down)
 	{
-		game->posy += 50;
-		render_next_frame(game);
+		if (game->angle < 180)
+			angle = game->angle - 180 + 360;
+		else
+			angle = game->angle - 180;
+		point = calculate_endpoint(game->posx, game->posy, angle, 50);
+		if (!check_wall(point.x, point.y, game))
+		{
+			game->posy = point.y;
+			game->posx = point.x;
+			render_next_frame(game);
+		}
 	}
 	if (keycode == XK_r)
 	{
@@ -313,9 +552,9 @@ int	main(int argc, char **argv)
 	{
         game.win_width = 1000;
         game.win_height = 1000;
-		game.posx = 650;
-		game.posy = 300;
-		game.angle = 0;
+		game.posx = 800;
+		game.posy = 400;
+		game.angle = 90;
         while (game.map[i])
             printf("%s\n", game.map[i++]);
         game.mlx = mlx_init();

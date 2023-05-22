@@ -18,6 +18,8 @@
 #define WHITE_PIXEL 0xFFFFFF
 #define WHITE_PIXEL 0xFFFFFF
 #define BLACK_PIXEL 0x000000
+#define GREY_PIXEL 0x808080
+#define BLUE_PIXEL 0x0000FF
 
 typedef struct s_img
 {
