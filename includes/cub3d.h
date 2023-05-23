@@ -14,12 +14,14 @@
 #define WINDOW_WIDTH 2000
 #define WINDOW_HEIGHT 1500
 #define RED_PIXEL 0xFF0000
+#define REDDARK_PIXEL 0xB30000
 #define GREEN_PIXEL 0xFF00
-#define WHITE_PIXEL 0xFFFFFF
 #define WHITE_PIXEL 0xFFFFFF
 #define BLACK_PIXEL 0x000000
 #define GREY_PIXEL 0x808080
 #define BLUE_PIXEL 0x0000FF
+#define BLUEDARK_PIXEL 0x0000B3
+#define YELLOW_PIXEL 0xFFFF00
 
 typedef struct s_img
 {
@@ -43,9 +45,10 @@ typedef struct s_data
 {	
 	void	*mlx;
 	void	*mlx_win;
-	int		posx;
-	int		posy;
+	double		posx;
+	double		posy;
 	int		angle;
+	int		color;
 	char	**map;
     t_img	img;
 	int		win_width;
