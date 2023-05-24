@@ -566,6 +566,13 @@ int	set_map(char **str, t_data *game)
 	return (0);
 }
 
+int myFunction(void *game)
+{
+	t_data *data = (t_data*)game;
+	(void)data;
+    return 0; // La valeur de retour 0 signifie que la boucle doit se poursuivre
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	game;
@@ -595,6 +602,7 @@ int	main(int argc, char **argv)
         render_next_frame(&game);
 		mlx_hook(game.mlx_win, KeyRelease, KeyReleaseMask, mykey_hook, &game);
 		mlx_hook(game.mlx_win, 17, 0, end, &game);
+		/*mlx_loop_hook(game.mlx, myFunction, (void*)&game);*/
 		mlx_loop(game.mlx);
 	}
 }
