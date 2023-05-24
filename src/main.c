@@ -6,14 +6,14 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
-double distance(int x, int y, int x2, int y2)
+double distance(double x, double y, double x2, double y2)
 {
     double dx = x2 - x;
     double dy = y2 - y;
     return sqrt(dx*dx + dy*dy);
 }
 
-t_point intersection(double x, double y, int angle, t_data *game)
+t_point intersection(double x, double y, double angle, t_data *game)
 {
 	t_point	p;
 	float	tanValue = tan(angle * M_PI / 180);
@@ -287,25 +287,30 @@ int	check_wall(double x, double y, t_data *game)
 {
 	int xIndex, yIndex;
 
-	if (x < ((count_x(game->map[(int)roundf(y) / 100], (int)roundf(x)) - 1) * 100))
+	if (x < ((count_x(game->map[(int)y / 100], (int)x) - 1) * 100))
 		xIndex = (int)ceil((double)x / 100);
 	else
-		xIndex = roundf(x) / 100;
+		xIndex = x / 100;
 
-	if (y < (count_tab(game->map, (int)roundf(x), (int)roundf(y)) - 1) * 100)
+	if (y < (count_tab(game->map, (int)x, (int)y) - 1) * 100)
 		yIndex = (int)ceil((double)y / 100);
 	else
-		yIndex = roundf(y) / 100;
+		yIndex = y / 100;
 	
 	if (game->map[yIndex][xIndex] == '1')
-		return (1);
+	{
+		if (fmod(x, 100) != 0 && fmod(y, 100) != 0)
+			return (0);
+		else
+			return (1);
+	}
 	return (0);
 }
 
 int	render(t_data *game)
 {	
 	int	i;
-	int	angle;
+	double	angle;
 	int len;
 	t_point p;
 
@@ -314,7 +319,7 @@ int	render(t_data *game)
 		angle = 360 - (45 - game->angle);
 	else
 		angle = game->angle - 45;
-	while (i < 90)
+	while (i <= 180)
 	{
 		p.x = game->posx;
 		p.y = game->posy;
@@ -325,16 +330,16 @@ int	render(t_data *game)
 		double d = distance(game->posx, game->posy, p.x, p.y);
 		if (d < 100)
 			d = 100;
-		if (i == 89)
-			len = WINDOW_WIDTH / 90 - 2;
+		if (i == 180)
+			len = WINDOW_WIDTH / 180 - 2;
 		else
-			len = WINDOW_WIDTH / 90;
-		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 90) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), len, (WINDOW_HEIGHT / d) * 100, game->color});
+			len = WINDOW_WIDTH / 180;
+		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 180) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), len, (WINDOW_HEIGHT / d) * 100, game->color});
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
-		if (angle == 359)
+		if (angle == 359.5)
 			angle = 0;
 		else
-			angle++;
+			angle += 0.5;
 		i++;
 	}
 	return (0);
