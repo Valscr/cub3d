@@ -335,13 +335,13 @@ int	render(t_data *game)
 		else
 			len = WINDOW_WIDTH / 180;
 		render_rect(&game->img, (t_rect){(WINDOW_WIDTH / 180) * (i + 1), (WINDOW_HEIGHT / 2) - (((WINDOW_HEIGHT / d) * 100) / 2), len, (WINDOW_HEIGHT / d) * 100, game->color});
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 		if (angle == 359.5)
 			angle = 0;
 		else
 			angle += 0.5;
 		i++;
 	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 	return (0);
 }
 
@@ -456,7 +456,6 @@ int	mykey_hook(int keycode, t_data *game)
 		{
 			game->posy = point.y;
 			game->posx = point.x;
-			render_next_frame(game);
 		}
 	}
 	else if (keycode == XK_Right)
@@ -470,7 +469,6 @@ int	mykey_hook(int keycode, t_data *game)
 		{
 			game->posy = point.y;
 			game->posx = point.x;
-			render_next_frame(game);
 		}
 	}
 	else if (keycode == XK_Left)
@@ -484,7 +482,6 @@ int	mykey_hook(int keycode, t_data *game)
 		{
 			game->posy = point.y;
 			game->posx = point.x;
-			render_next_frame(game);
 		}
 	}
 	else if (keycode == XK_Down)
@@ -498,7 +495,6 @@ int	mykey_hook(int keycode, t_data *game)
 		{
 			game->posy = point.y;
 			game->posx = point.x;
-			render_next_frame(game);
 		}
 	}
 	else if (keycode == XK_r)
@@ -507,7 +503,6 @@ int	mykey_hook(int keycode, t_data *game)
 			game->angle += 20 - 360;
 		else
 			game->angle += 20;
-		render_next_frame(game);
 	}
 	else if (keycode == XK_t)
 	{
@@ -515,8 +510,8 @@ int	mykey_hook(int keycode, t_data *game)
 			game->angle += -20 + 360;
 		else
 			game->angle -= 20;
-		render_next_frame(game);
 	}
+	printf("game angle = %d    x = %f   y = %f\n", game->angle, game->posx, game->posy);
 	return (0);
 }
 
@@ -569,8 +564,22 @@ int	set_map(char **str, t_data *game)
 int myFunction(void *game)
 {
 	t_data *data = (t_data*)game;
-	(void)data;
-    return 0; // La valeur de retour 0 signifie que la boucle doit se poursuivre
+	render_next_frame(data);
+    return 0;
+}
+
+int	parse_xpm(t_data *game)
+{
+	int originalBitsPerPixel;
+	int originalLineLength;
+	int originalEndian;
+	int len = 100;
+	game->texture = mlx_xpm_file_to_image(game->mlx,
+					"./images/wood.xpm", &len,
+					&len);
+	char *originalImageData = mlx_get_data_addr(game->texture, &originalBitsPerPixel, &originalLineLength, &originalEndian);
+	printf("%s\n", originalImageData);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -600,9 +609,10 @@ int	main(int argc, char **argv)
 		game.img.mlx_img = mlx_new_image(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 		game.img.addr = mlx_get_data_addr(game.img.mlx_img, &game.img.bpp, &game.img.line_len, &game.img.endian);
         render_next_frame(&game);
+		parse_xpm(&game);
 		mlx_hook(game.mlx_win, KeyRelease, KeyReleaseMask, mykey_hook, &game);
 		mlx_hook(game.mlx_win, 17, 0, end, &game);
-		/*mlx_loop_hook(game.mlx, myFunction, (void*)&game);*/
+		mlx_loop_hook(game.mlx, myFunction, (void*)&game);
 		mlx_loop(game.mlx);
 	}
 }

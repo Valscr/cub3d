@@ -51,6 +51,7 @@ typedef struct s_data
 	int		color;
 	char	**map;
     t_img	img;
+	void	*texture;
 	int		win_width;
 	int		win_height;
 }				t_data;
