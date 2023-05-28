@@ -32,12 +32,23 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		width;
+	int		height;
+	int		line_len;
+	int		endian;
+}	t_texture;
+
 typedef struct s_rect
 {
-	int	x;
-	int	y;
-	int width;
-	int height;
+	double	x;
+	double	y;
+	double width;
+	double height;
 	int color;
 }	t_rect;
 
@@ -49,11 +60,11 @@ typedef struct s_data
 	double		posy;
 	int		angle;
 	int		color;
+	int		orient[WINDOW_WIDTH];
 	char	**map;
+	char	*name_texture[4];
     t_img	img;
-	void	*texture;
-	int		win_width;
-	int		win_height;
+	t_texture texture[4];
 }				t_data;
 
 char	*ft_strjoin1(char *s1, char *s2);
