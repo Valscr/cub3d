@@ -556,18 +556,18 @@ int	mykey_hook(int keycode, t_data *game)
 	}
 	else if (keycode == XK_t)
 	{
-		if (game->angle >= 355.0)
-			game->angle -= 355.0;
+		if (game->angle >= 340.0)
+			game->angle -= 340.0;
 		else
-			game->angle += 5.0;
+			game->angle += 20.0;
 		render_next_frame(game);
 	}
 	else if (keycode == XK_r)
 	{
-		if (game->angle < 5.0)
-			game->angle += 355;
+		if (game->angle < 20.0)
+			game->angle += 340;
 		else
-			game->angle -= 5.0;
+			game->angle -= 20.0;
 		render_next_frame(game);
 	}
 	return (0);
