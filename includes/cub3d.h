@@ -60,6 +60,8 @@ typedef struct s_data
 	double		posy;
 	int		angle;
 	int		color;
+	int		color_floor;
+	int		color_ceiling;
 	int		orient[WINDOW_WIDTH];
 	char	**map;
 	char	*name_texture[4];

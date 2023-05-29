@@ -195,9 +195,11 @@ int render_rect(t_rect rect, t_data *game, t_pointt point, int d)
 	double j;
 	double start;
 	int text;
+	int recty;
 
 	start = 0;
 	text = 0;
+	recty = rect.y;
 	if (game->orient[d] == BLUEDARK_PIXEL)
 	{
 		start = fmod(point.x[d], 100);
@@ -217,11 +219,19 @@ int render_rect(t_rect rect, t_data *game, t_pointt point, int d)
 	{
 		start = fmod(point.y[d], 100);
 		text = 3;
-	  }
+	}
 	float scale_x = (float)game->texture[text].width / 100.0;
 	float scale_y = (float)game->texture[text].height / (rect.height);
-	i = rect.y;
-	while (i < rect.y + rect.height)
+	if (rect.height > WINDOW_HEIGHT)
+		rect.height = WINDOW_HEIGHT;
+	if (rect.y < 0)
+	{
+		i = 0;
+		recty = 0;
+	}
+	else
+		i = rect.y;
+	while (i < recty + rect.height)
 	{
 		j = rect.x;
 		while (j < rect.x + rect.width)
@@ -236,7 +246,7 @@ int render_rect(t_rect rect, t_data *game, t_pointt point, int d)
 	return (0);
 }
 
-void	render_background(t_img *img, int color)
+void	render_background(t_img *img, t_data *game)
 {
 	int	i;
 	int	j;
@@ -247,7 +257,7 @@ void	render_background(t_img *img, int color)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			img_pix_put(img, j++, i, color);
+			img_pix_put(img, j++, i, game->color_ceiling);
 		}
 		++i;
 	}
@@ -256,7 +266,7 @@ void	render_background(t_img *img, int color)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			img_pix_put(img, j++, i, GREY_PIXEL);
+			img_pix_put(img, j++, i, game->color_floor);
 		}
 		++i;
 	}
@@ -387,8 +397,6 @@ int	render(t_data *game)
 	while (i < WINDOW_WIDTH)
 	{
 		double d = distance(game->posx, game->posy, point.x[i], point.y[i]);
-		if (d < 100)
-			d = 100;
 		len = 1;
 		render_rect((t_rect){i, ((double)WINDOW_HEIGHT / 2.0) - ((((double)WINDOW_HEIGHT / d) * 100.0) / 2.0), len, ((double)WINDOW_HEIGHT / d) * 100.0, game->color}, game, point, i);
 		i++;
@@ -399,7 +407,7 @@ int	render(t_data *game)
 
 int	render_next_frame(t_data *game)
 {
-	render_background(&game->img, BLACK_PIXEL);
+	render_background(&game->img, game);
 	render(game);
 	return (0);
 }
@@ -572,34 +580,40 @@ int	mykey_hook(int keycode, t_data *game)
 	}
 	return (0);
 }
-char* convertToHex(int r, int g, int b)
+int convertToHex(char *str)
 {
     char *hexDigits;
  	unsigned int color;
     char* hexColor;
+	char **string;
 	int i;
+	int r;
+	int g;
+	int b;
 
+	string = ft_split(str, ',');
+	r = ft_atoi(string[0]);
+	g = ft_atoi(string[1]);
+	b = ft_atoi(string[2]);
 	hexDigits = ft_strdup("0123456789ABCDEF");
 	color = (r << 16) | (g << 8) | b;
-	hexColor = (char*)malloc(8 * sizeof(char));
+	hexColor = (char*)malloc(6 * sizeof(char));
     if (r < 0) r = 0;
     if (r > 255) r = 255;
     if (g < 0) g = 0;
     if (g > 255) g = 255;
     if (b < 0) b = 0;
     if (b > 255) b = 255;
-    hexColor[0] = '0';
-    hexColor[1] = 'x';
-    hexColor[8] = '\0';
+    hexColor[6] = '\0';
 
-	i = 7;
-	while (i >= 2) 
+	i = 5;
+	while (i >= 0) 
 	{
         hexColor[i--] = hexDigits[color & 0xF];
         color >>= 4;
     }
 	free(hexDigits);
-	return (hexColor);
+	return (ft_atoi_base(hexColor, "0123456789ABCDEF"));
 }
 
 int	parse_map_texture_color(char **str, t_data *game)
@@ -618,7 +632,9 @@ int	parse_map_texture_color(char **str, t_data *game)
 		else if (str[i][0] == 'E' && str[i][1] == 'A' && str[i][2] == ' ')
 			game->name_texture[3] = ft_strdup(&str[i][3]);
 		else if (str[i][0] == 'F' && str[i][1] == ' ')
-			printf("color = %s\n",convertToHex(220, 100, 0));
+			game->color_floor = convertToHex(&str[i][2]);
+		else if (str[i][0] == 'C' && str[i][1] == ' ')
+			game->color_ceiling = convertToHex(&str[i][2]);
 		i++;
 	}
 	return (0);
