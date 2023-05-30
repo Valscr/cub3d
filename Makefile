@@ -1,7 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/30 13:32:44 by valentin          #+#    #+#              #
+#    Updated: 2023/05/30 13:34:03 by valentin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = cub3d
 
-C_FILES = main.c get_next_line.c get_next_line_utils.c
+C_FILES = main.c get_next_line.c get_next_line_utils.c utils.c ft_split2.c calculate_point.c \
+			check_wall.c free_error.c key_hook.c parse_map.c parse_texture_color.c \
+			parse_xpm.c render.c
 
 SRC_DIR		=	./src/
 
