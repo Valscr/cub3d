@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:19:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:22:04 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:08:27 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,50 @@ int	render(t_data *game)
 	t_pointt point;
 
 	incrangle = 90.0 / (double)WINDOW_WIDTH;
+	i = WINDOW_WIDTH - 1;
+	if (game->angle < 45)
+		angle = 360.0 - (45.0 - game->angle);
+	else
+		angle = game->angle - 45.0;
+	while (i >= 0)
+	{
+		p.x = game->posx;
+		p.y = game->posy;
+		while (!check_wall(p.x, p.y, game))
+		{
+			p = intersection(p.x, p.y, angle, game);
+		}
+		point.x[i] = p.x;
+		point.y[i] = p.y;
+		game->orient[i] = game->color;
+		if (angle >= 359.955)
+			angle = 0;
+		else
+			angle += incrangle;
+		i--;
+	}
+	i = WINDOW_WIDTH - 1;
+	while (i >= 0)
+	{
+		double d = distance(game->posx, game->posy, point.x[i], point.y[i]);
+		len = 1;
+		render_rect((t_rect){i, ((double)WINDOW_HEIGHT / 2.0) - ((((double)WINDOW_HEIGHT / d) * 100.0) / 2.0), len, ((double)WINDOW_HEIGHT / d) * 100.0, game->color}, game, point, i);
+		i--;
+	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
+	return (0);
+}
+
+/*int	render(t_data *game)
+{	
+	int	i;
+	double	angle;
+	double len;
+	double incrangle;
+	t_point p;
+	t_pointt point;
+
+	incrangle = 90.0 / (double)WINDOW_WIDTH;
 	i = 0;
 	if (game->angle < 45)
 		angle = 360.0 - (45.0 - game->angle);
@@ -162,7 +206,7 @@ int	render(t_data *game)
 	}
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 	return (0);
-}
+}*/
 
 int	render_next_frame(t_data *game)
 {

@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:35 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:23:55 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:10:04 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	mykey_hook(int keycode, t_data *game)
 			render_next_frame(game);
 		}
 	}
-	else if (keycode == XK_Right)
+	else if (keycode == XK_Left)
 	{
 		if (game->angle >= 270.0)
 			angle = game->angle - 270.0;
@@ -45,7 +45,7 @@ int	mykey_hook(int keycode, t_data *game)
 			render_next_frame(game);
 		}
 	}
-	else if (keycode == XK_Left)
+	else if (keycode == XK_Right)
 	{
 		if (game->angle < 90.0)
 			angle = game->angle + 270.0;
@@ -73,7 +73,7 @@ int	mykey_hook(int keycode, t_data *game)
 			render_next_frame(game);
 		}
 	}
-	else if (keycode == XK_t)
+	else if (keycode == XK_r)
 	{
 		if (game->angle >= 340.0)
 			game->angle -= 340.0;
@@ -81,7 +81,7 @@ int	mykey_hook(int keycode, t_data *game)
 			game->angle += 20.0;
 		render_next_frame(game);
 	}
-	else if (keycode == XK_r)
+	else if (keycode == XK_t)
 	{
 		if (game->angle < 20.0)
 			game->angle += 340;
