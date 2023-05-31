@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 16:57:22 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:17:56 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	set_pos_player(char c, int y, int x, t_data *game)
 		game->angle = 270;
 	else if (c == 'E')
 		game->angle = 90;
-	game->posy = y * 100;
-	game->posx = x * 100;
+	game->posy = y * 100 + 50;
+	game->posx = x * 100 + 50;
+
 	return;
 }
 
