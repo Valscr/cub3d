@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/31 18:07:28 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:49:20 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,26 @@ int	check_wall_map(char **str)
 		i++;
 	}
 	i = 1;
-	while (str[i])
+	while (str[i + 1])
 	{
 		j = 0;
 		while (str[i][j] == ' ')
 			j++;
 		if (str[i][j] != '1')
 			return (0);
+		while (j < ft_strlen_lesspace(str[i]))
+		{
+			if (str[i][j] == '0')
+			{
+				if (j > ft_strlen_lesspace(str[i - 1]) || j > ft_strlen_lesspace(str[i + 1]) || str[i - 1][j] == ' ' || str[i + 1][j] == ' ')
+					return (0);
+			}
+			j++;
+		}
 		if (str[i][ft_strlen_lesspace(str[i])] == '0' || ft_strlen_lesspace(str[i]) == 0)
 			return (0);
 		i++;
 	}
-	i--;
 	while (str[i][j])
 	{
 		if (str[i][j] == '0')
