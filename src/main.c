@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:54 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/31 15:50:17 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:27:48 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int myFunction(void *game)
 {
 	t_data *data = (t_data*)game;
-	(void)data;
+	render_next_frame(data);
     return 0;
 }
 
@@ -43,9 +43,10 @@ int	main(int argc, char **argv)
        	if (parse_xpm(&game))
 			return (0);
 	  	render_next_frame(&game);
-		mlx_hook(game.mlx_win, KeyRelease, KeyReleaseMask, mykey_hook, &game);
+		/*mlx_hook(game.mlx_win, KeyRelease, KeyReleaseMask, mykey_hook, &game);*/
 		mlx_hook(game.mlx_win, 17, 0, end, &game);
-		/*mlx_loop_hook(game.mlx, myFunction, (void*)&game);*/
+		mlx_hook(game.mlx_win, KeyPress, KeyPressMask, mykey_hook, &game);
+		mlx_loop_hook(game.mlx, myFunction, (void*)&game);
 		mlx_loop(game.mlx);
 	}
 }
