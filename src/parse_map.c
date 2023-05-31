@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:24:43 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:57:22 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	parse_map(int fd, t_data *game)
 	full = ft_split(str, '\n');
 	free(str);
 	if (!parse_map_texture_color(full, game))
-		return(write(2, "Error : bad info .cub\n", 23), 0);
+		return(write(2, "Error : missing informations .cub file\n", 39), 0);
 	if (!parse_map_true(full, game))
 		return (write(2, "Error : bad map format\n", 23), 0);
 	return (1);
@@ -136,6 +136,8 @@ int	set_map(char **str, t_data *game)
 			if (!parse_map(fd, game))
 				return (1);
 		}
+		else
+			return (write(2, "Error : empty map\n", 18), 1);
 	}
 	return (0);
 }

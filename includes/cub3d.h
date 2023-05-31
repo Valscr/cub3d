@@ -118,5 +118,6 @@ void	render_background(t_img *img, t_data *game);
 int	render(t_data *game);
 int	render_next_frame(t_data *game);
 int	end(t_data *game);
+void	create_tab_int(char **str, t_data *game);
 
 #endif
