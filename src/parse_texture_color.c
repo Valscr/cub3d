@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:16:50 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:17:48 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:27:00 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int convertToHex(char *str)
 	b = ft_atoi(string[2]);
 	hexDigits = ft_strdup("0123456789ABCDEF");
 	color = (r << 16) | (g << 8) | b;
-	hexColor = (char*)malloc(6 * sizeof(char));
+	hexColor = malloc(sizeof(char) * 7);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (-1);
+		return (free_tab_str(string), free(hexDigits), free(hexColor), -1);
     hexColor[6] = '\0';
 	i = 5;
 	while (i >= 0) 

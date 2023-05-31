@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:20:37 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:34:52 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:27:46 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,9 @@ int	free_tab_str(char **str)
 		return (0);
 	free(str);
 	return (0);
+}
+
+void free_all(t_data *game)
+{
+	free_tab_str(game->name_texture);
 }

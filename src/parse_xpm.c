@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:18:27 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/30 13:21:35 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:56:14 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,18 @@ int is_xpm_file(char* filename)
 	return (1);
 }
 
-int	parse_xpm(t_data *game)
+void	parse_xpm(t_data *game)
 {
 	int i;
 
 	i = 0;
 	while (i < 4)
 	{
-		if (is_xpm_file(game->name_texture[i]))
-		{
-			game->texture[i].img = mlx_xpm_file_to_image(game->mlx,
-					game->name_texture[i], &game->texture[i].width,
-					&game->texture[i].height);
-			game->texture[i].addr = mlx_get_data_addr(game->texture[i].img, &game->texture[i].bpp, &game->texture[i].line_len, &game->texture[i].endian);
-		}
-		else
-			return (1);
+		game->texture[i].img = mlx_xpm_file_to_image(game->mlx,
+			game->name_texture[i], &game->texture[i].width, &game->texture[i].height);
+		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img, &game->texture[i].bpp,
+			&game->texture[i].line_len, &game->texture[i].endian);
 		i++;
-		
 	}
-	return (0);
+	return ;
 }

@@ -77,11 +77,12 @@ typedef struct s_data
 	int		color_ceiling;
 	int		orient[WINDOW_WIDTH];
 	char	**map;
-	char	*name_texture[4];
+	char	**name_texture;
     t_img	img;
-	t_texture texture[4];
+	t_texture *texture;
 }				t_data;
 
+void init(t_data *game);
 char	*ft_strjoin1(char *s1, char *s2);
 char	*ft_cut_dest(char *dest);
 char	*new_save(char *dest);
@@ -110,7 +111,7 @@ int convertToHex(char *str);
 char	*put_image_file(char *str);
 int	parse_map_texture_color(char **str, t_data *game);
 int is_xpm_file(char* filename);
-int	parse_xpm(t_data *game);
+void	parse_xpm(t_data *game);
 void	img_pix_put(t_img *img, int x, int y, int color);
 unsigned int get_pixel(char *addr, int x, int y, int line_len, int bpp);
 int render_rect(t_rect rect, t_data *game, t_pointt point, int d);
@@ -119,5 +120,6 @@ int	render(t_data *game);
 int	render_next_frame(t_data *game);
 int	end(t_data *game);
 void	create_tab_int(char **str, t_data *game);
+void free_all(t_data *game);
 
 #endif

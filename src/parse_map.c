@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/31 18:49:20 by valentin         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:55:00 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int	copy_map(char **str, t_data *game)
 		game->map[i] = ft_strdup(str[i]);
 		i++;
 	}
+	game->map[i] = NULL;
 	if (d != 1 )
 		return (0);
 	if (!check_wall_map(game->map))
@@ -198,7 +199,9 @@ int	parse_map(int fd, t_data *game)
 {
 	char	*str;
 	char	**full;
+	int i;
 
+	i = 0;
 	str = get_next_line(fd);
 	if (str == 0)
 	{
@@ -206,14 +209,17 @@ int	parse_map(int fd, t_data *game)
 		exit(0);
 	}
 	if (!check_double_return_line(str))
-		return (write(2, "Error : map not close\n", 23), 0);
+		return (free_str(str), write(2, "Error : map not close\n", 23), 0);
 	full = ft_split(str, '\n');
 	free(str);
 	if (!parse_map_texture_color(full, game))
-		return(write(2, "Error : missing informations .cub file\n", 39), 0);
+		return(free_tab_str(full), write(2, "Error : missing informations .cub file\n", 39), 0);
+	while (i < 4)
+		if (!is_xpm_file(game->name_texture[i++]))
+			return (free_tab_str(full), 0);
 	if (!parse_map_true(full, game))
-		return (write(2, "Error : bad map format\n", 23), 0);
-	return (1);
+		return (free_tab_str(full), write(2, "Error : bad map format\n", 23), 0);
+	return (free_tab_str(full), 1);
 }
 
 int	set_map(char **str, t_data *game)
