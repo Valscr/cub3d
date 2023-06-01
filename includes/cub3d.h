@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 22:56:34 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 23:28:52 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WINDOW_HEIGHT 1000
 # define GREEN_PIXEL 0x54FA3A
 # define SPEED_ROTATE 4
-# define SPEED_F_B 12
+# define SPEED_F_B 10
 # define SPEED_L_R 8
 # define NORTH 0
 # define SOUTH 1

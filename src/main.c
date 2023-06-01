@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:54 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 19:35:40 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 23:27:11 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int	hook_function(void *game)
 {
-	t_data	*data;
-
-	data = (t_data *)game;
-	render_next_frame(data);
+	render_next_frame((t_data *)game);
 	return (0);
 }
 
