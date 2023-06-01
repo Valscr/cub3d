@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:37 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:24:25 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 00:08:43 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ double	distance(double x, double y, double x2, double y2)
 	dx = x2 - x;
 	dy = y2 - y;
 	return (sqrt(dx * dx + dy * dy));
+}
+
+int	find_one(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '1')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	end(t_data *game)

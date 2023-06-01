@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:30:35 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:37:08 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 00:08:47 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ int	check_wall_first_last(char **str)
 	return (1);
 }
 
+int	check_close_x(char *str, int j)
+{
+	while (j >= 0)
+	{
+		if (str[j] == '1')
+			return (1);
+		j--;
+	}
+	return (0);
+}
+
 int	check_wall_map_bis(char **str, int i, int j)
 {
 	while (j < ft_strlen_lesspace(str[i]))
@@ -44,7 +55,8 @@ int	check_wall_map_bis(char **str, int i, int j)
 		{
 			if (j > ft_strlen_lesspace(str[i - 1])
 				|| j > ft_strlen_lesspace(str[i + 1])
-				|| str[i - 1][j] == ' ' || str[i + 1][j] == ' ')
+				|| !check_close_x(str[i + 1], j)
+				|| !check_close_x(str[i - 1], j))
 				return (0);
 		}
 		j++;
@@ -89,18 +101,4 @@ int	ft_strlen_lesspace(char *str)
 		i--;
 	}
 	return (i);
-}
-
-int	find_one(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '1')
-			return (1);
-		i++;
-	}
-	return (0);
 }
