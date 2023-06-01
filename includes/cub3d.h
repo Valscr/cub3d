@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:55:59 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:44:24 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 
 # define WINDOW_WIDTH 2000
 # define WINDOW_HEIGHT 1500
+# define SPEED_ROTATE 4
+# define SPEED_F_B 12
+# define SPEED_L_R 8
 # define NORTH 0
 # define SOUTH 1
 # define WEST 3
@@ -81,6 +84,12 @@ typedef struct s_data
 	int			nsew;
 	int			color_floor;
 	int			color_ceiling;
+	int			forward;
+	int			back;
+	int			left;
+	int			right;
+	int			rotate_left;
+	int			rotate_right;
 	float		scale_x;
 	float		scale_y;
 	int			orient[WINDOW_WIDTH];
@@ -105,12 +114,13 @@ int				count_tab(char **str, int x, int y);
 int				count_tab_full(char **str);
 int				count_x(char *str, int x);
 int				check_wall(double x, double y, t_data *game);
-int				key_hook(int keycode, t_data *game);
+int				key_press(int keycode, t_data *game);
+int				key_release(int keycode, t_data *game);
 void			move_forward(t_data *game);
 void			move_backward(t_data *game);
 void			move_left(t_data *game);
 void			move_right(t_data *game);
-void			rotate(t_data *game, int keycode);
+void			rotate(t_data *game);
 void			set_pos_player(char c, int y, int x, t_data *game);
 int				copy_map(char **str, t_data *game);
 int				copy_map_bis(int j, int i, t_data *game, char **str);

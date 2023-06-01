@@ -6,20 +6,32 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:52:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:49:20 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:37:41 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	init_move(t_data *game)
+{
+	game->posx = 0;
+	game->posy = 0;
+	game->angle = 0;
+	game->forward = 0;
+	game->back = 0;
+	game->left = 0;
+	game->right = 0;
+	game->rotate_left = 0;
+	game->rotate_right = 0;
+	return ;
+}
 
 void	init(t_data *game)
 {
 	int	i;
 
 	i = 0;
-	game->posx = 0;
-	game->posy = 0;
-	game->angle = 0;
+	init_move(game);
 	game->nsew = 0;
 	game->color_floor = 0;
 	game->color_ceiling = 0;

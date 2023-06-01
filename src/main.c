@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:54 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:45:32 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:35:40 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	main(int argc, char **argv)
 		parse_xpm(&game);
 		render_next_frame(&game);
 		mlx_hook(game.mlx_win, 17, 0, end, &game);
-		mlx_hook(game.mlx_win, KeyPress, KeyPressMask, key_hook, &game);
+		mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
+		mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game);
 		mlx_loop_hook(game.mlx, hook_function, (void *)&game);
 		mlx_loop(game.mlx);
 	}

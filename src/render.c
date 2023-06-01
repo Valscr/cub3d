@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:19:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 16:31:59 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:34:47 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,10 @@ int	render_next_frame(t_data *game)
 	render_background(&game->img, game);
 	render(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
+	move_forward(game);
+	move_left(game);
+	move_right(game);
+	move_backward(game);
+	rotate(game);
 	return (0);
 }
