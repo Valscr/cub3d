@@ -1,4 +1,4 @@
-# CUB3D
+# cub3D
 
 C-coded project that draws inspiration from the iconic game Wolfenstein 3D. It aims to create a visually immersive 3D labyrinth where players can navigate, interact, and experience the environment. The project utilizes raycasting, texture mapping, and scene parsing techniques.
 
