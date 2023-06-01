@@ -6,17 +6,20 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:37 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/31 22:41:59 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:24:25 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-double distance(double x, double y, double x2, double y2)
+double	distance(double x, double y, double x2, double y2)
 {
-    double dx = x2 - x;
-    double dy = y2 - y;
-    return sqrt(dx*dx + dy*dy);
+	double	dx;
+	double	dy;
+
+	dx = x2 - x;
+	dy = y2 - y;
+	return (sqrt(dx * dx + dy * dy));
 }
 
 int	end(t_data *game)

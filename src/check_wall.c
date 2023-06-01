@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:05 by valentin          #+#    #+#             */
-/*   Updated: 2023/05/31 15:51:08 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:21:11 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_tab(char **str, int x, int y)
 
 int	count_tab_full(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -52,29 +52,29 @@ int	count_x(char *str, int x)
 
 int	check_wall(double x, double y, t_data *game)
 {
-	int xIndex, yIndex;
-	
+	int	xindex;
+	int	yindex;
+
 	if (y < 0 || x < 0)
 		return (1);
-	yIndex = (int)(y / 100.0);
-	xIndex = (int)(x / 100.0);
+	yindex = (int)(y / 100.0);
+	xindex = (int)(x / 100.0);
 	if (fmod(y, 100.0) == 0.0)
 	{
-		if (((int)(y / 100.0)) > (count_tab(game->map, xIndex, (int)(y / 100.0))))
-			yIndex = (int)(y / 100.0) - 1;
+		if (((int)(y / 100.0)) > (count_tab(game->map, xindex,
+			(int)(y / 100.0))))
+			yindex = (int)(y / 100.0) - 1;
 	}
 	if (fmod(x, 100.0) == 0.0)
 	{
-		if ((int)(x / 100.0) > ((count_x(game->map[yIndex], (int)x))))
-			xIndex = (int)(x / 100.0) - 1;
+		if ((int)(x / 100.0) > ((count_x(game->map[yindex], (int)x))))
+			xindex = (int)(x / 100.0) - 1;
 	}	
-	if (yIndex >= count_tab_full(game->map))
+	if (yindex >= count_tab_full(game->map))
 		return (1);
-	if (xIndex >= ft_strlen(game->map[yIndex]))
+	if (xindex >= ft_strlen(game->map[yindex]))
 		return (1);
-	if (game->map[yIndex][xIndex] == '1')
-	{
-			return (1);
-	}
+	if (game->map[yindex][xindex] == '1')
+		return (1);
 	return (0);
 }

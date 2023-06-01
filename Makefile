@@ -6,15 +6,16 @@
 #    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 13:32:44 by valentin          #+#    #+#              #
-#    Updated: 2023/05/31 19:03:01 by valentin         ###   ########.fr        #
+#    Updated: 2023/06/01 19:01:04 by valentin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 C_FILES = main.c get_next_line.c get_next_line_utils.c utils.c ft_split2.c calculate_point.c \
-			check_wall.c free_error.c key_hook.c parse_map.c parse_texture_color.c \
-			parse_xpm.c render.c init.c
+			calculate_point_bis.c intersection.c intersection_bis.c check_wall.c free_error.c \
+			key_hook.c parse_map.c parse_texture_color.c parse_xpm.c render.c init.c \
+			render_rect.c check_map.c copy_map.c key_hook_bis.c
 
 SRC_DIR		=	./src/
 
@@ -26,7 +27,7 @@ CFLAGS += -Wall -Wextra -Werror
 
 MLXFLAGS	= -Lmlx_linux -lmlx_Linux -Imlx_linux -L/usr/lib -lXext -lX11 -lm
 
-LIBSFLAGS	=  libft/libft.a ft_printf/libftprintf.a
+LIBSFLAGS	=  libft/libft.a
 
 CC		= gcc
 RM		= rm -f
@@ -46,20 +47,17 @@ maker:
 		@chmod +x mlx_linux/configure
 		@make -C mlx_linux
 		@make -C libft
-		@make -C ft_printf
 
 clean:
 		@${RM} -rf ${DIR_OBJ}
 		@make clean -C libft
-		@make clean -C ft_printf
 
 fclean:	clean
 		@make clean -C mlx_linux
 		@make fclean -C libft
-		@make fclean -C ft_printf
 		@${RM} ${NAME}
 
 re:		fclean all
 
 norm:
-	norminette $(SRC_DIR)*.c includes/so_long.h libft/*.c libft/*.h ft_printf/*.c ft_printf/*.h
+	norminette $(SRC_DIR)*.c includes/cub3d.h libft/*.c libft/*.h
