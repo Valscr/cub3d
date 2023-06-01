@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 19:44:24 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:56:34 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <stdlib.h>
 # include <math.h>
 
-# define WINDOW_WIDTH 2000
-# define WINDOW_HEIGHT 1500
+# define WINDOW_WIDTH 1300
+# define WINDOW_HEIGHT 1000
+# define GREEN_PIXEL 0x54FA3A
 # define SPEED_ROTATE 4
 # define SPEED_F_B 12
 # define SPEED_L_R 8
@@ -164,5 +165,6 @@ t_point			endpt_270to360(double x, double y, double angle, double len);
 t_point			endpt_round(double x, double y, double angle, double len);
 double			set_xlen(double x);
 double			set_ylen(double y);
+void			render_sight(t_img *img);
 
 #endif

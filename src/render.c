@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:19:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 19:34:47 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:55:58 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	render(t_data *game)
 		point.x[i] = p.x;
 		point.y[i] = p.y;
 		game->orient[i] = game->nsew;
-		if (angle >= 359.955)
+		if (angle >= 360 - 90.0 / (double)WINDOW_WIDTH)
 			angle = 0;
 		else
 			angle += 90.0 / (double)WINDOW_WIDTH;
@@ -88,6 +88,7 @@ int	render_next_frame(t_data *game)
 {
 	render_background(&game->img, game);
 	render(game);
+	render_sight(&game->img);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 	move_forward(game);
 	move_left(game);
