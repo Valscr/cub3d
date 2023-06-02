@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 23:28:52 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:13:39 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_data
 	t_texture	*texture;
 }				t_data;
 
-void			init(t_data *game);
+int				init(t_data *game);
 char			*ft_strjoin1(char *s1, char *s2);
 char			*ft_cut_dest(char *dest);
 char			*new_save(char *dest);

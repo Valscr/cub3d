@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:16:50 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 22:57:32 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:16:13 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	convert_hex(char *str)
 	if (!find_int(str))
 		return (-1);
 	string = ft_split2(str, " ,");
+	if (!string)
+		return (-1);
 	r = ft_atoi(string[0]);
 	g = ft_atoi(string[1]);
 	b = ft_atoi(string[2]);

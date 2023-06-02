@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:52:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 19:37:41 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:29:40 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_move(t_data *game)
 {
+	game->nsew = 0;
 	game->posx = 0;
 	game->posy = 0;
 	game->angle = 0;
@@ -26,13 +27,12 @@ void	init_move(t_data *game)
 	return ;
 }
 
-void	init(t_data *game)
+int	init(t_data *game)
 {
 	int	i;
 
 	i = 0;
 	init_move(game);
-	game->nsew = 0;
 	game->color_floor = 0;
 	game->color_ceiling = 0;
 	game->scale_x = 0.0;
@@ -44,6 +44,8 @@ void	init(t_data *game)
 	game->img.addr = NULL;
 	game->name_texture = malloc(sizeof(char *) * 5);
 	game->texture = malloc(sizeof(t_texture) * 5);
+	if (!game->name_texture || !game->texture)
+		return (0);
 	while (i < 5)
 	{
 		game->name_texture[i] = NULL;
@@ -51,4 +53,5 @@ void	init(t_data *game)
 		game->texture[i].addr = NULL;
 		i++;
 	}
+	return (1);
 }

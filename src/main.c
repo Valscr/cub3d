@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:54 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 23:27:11 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:13:20 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (write(2, "Error\nThis program needs one argument .cub\n", 44), 0);
-	init(&game);
+	if (!init(&game))
+		return (0);
 	if (set_map(argv, &game))
 		return (end(&game), 0);
 	else

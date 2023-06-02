@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:35:02 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:36:45 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:14:54 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	copy_map(char **str, t_data *game)
 	if (i == -1)
 		return (0);
 	game->map = malloc(sizeof(char *) * (i + 1));
+	if (!game->map)
+		return (0);
 	i = 0;
 	while (str[i])
 	{
