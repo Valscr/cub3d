@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:19:33 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 22:55:58 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/03 01:10:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	render_next_frame(t_data *game)
 	render_background(&game->img, game);
 	render(game);
 	render_sight(&game->img);
+	render_mini_map(&game->img, game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.mlx_img, 0, 0);
 	move_forward(game);
 	move_left(game);

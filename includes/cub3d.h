@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/02 11:13:39 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/03 01:11:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,8 @@ t_point			endpt_round(double x, double y, double angle, double len);
 double			set_xlen(double x);
 double			set_ylen(double y);
 void			render_sight(t_img *img);
+int				fill_rect(t_img *img, t_rect rect);
+int				find_max_width(t_data *game);
+void			render_mini_map(t_img *img, t_data *game);
 
 #endif
