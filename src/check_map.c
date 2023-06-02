@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:30:35 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/02 00:08:47 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/03 00:25:34 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	check_wall_map(char **str)
 			return (0);
 		if (!check_wall_map_bis(str, i, j))
 			return (0);
-		if (str[i][ft_strlen_lesspace(str[i])] == '0'
-			|| ft_strlen_lesspace(str[i]) == 0)
+		if (str[i][ft_strlen_lesspace(str[i])] == '0')
 			return (0);
 		i++;
 	}
