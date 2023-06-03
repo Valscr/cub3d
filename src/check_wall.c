@@ -70,9 +70,9 @@ int	check_wall(double x, double y, t_data *game)
 		if ((int)(x / 100.0) > ((count_x(game->map[yindex], (int)x))))
 			xindex = (int)(x / 100.0) - 1;
 	}	
-	if (yindex >= count_tab_full(game->map))
+	if (yindex >= count_tab_full(game->map) || yindex < 0)
 		return (1);
-	if (xindex >= ft_strlen(game->map[yindex]))
+	if (xindex >= ft_strlen(game->map[yindex]) || xindex < 0)
 		return (1);
 	if (game->map[yindex][xindex] == '1')
 		return (1);
