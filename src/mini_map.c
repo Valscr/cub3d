@@ -57,10 +57,10 @@ void	render_mini_map(t_img *img, t_data *game)
 	i = 0;
 	rec.width = WINDOW_WIDTH / 5 / find_max_width(game);
 	rec.height = WINDOW_HEIGHT / 5 / count_tab_full(game->map);
-	while (i * rec.height < WINDOW_HEIGHT / 5 - rec.height)
+	while (i < count_tab_full(game->map))
 	{
 		j = 0;
-		while (j * rec.width < WINDOW_WIDTH / 5 - rec.width)
+		while (j < find_max_width(game))
 		{
 			rec.x = j * rec.width;
 			rec.y = i * rec.height;
