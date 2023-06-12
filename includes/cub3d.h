@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vescaffr <vescaffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/03 17:09:13 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/12 15:07:49 by vescaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WINDOW_WIDTH 1300
 # define WINDOW_HEIGHT 1000
 # define GREEN_PIXEL 0x54FA3A
-# define SPEED_ROTATE 4
+# define SPEED_ROTATE 3
 # define SPEED_F_B 10
 # define SPEED_L_R 8
 # define NORTH 0

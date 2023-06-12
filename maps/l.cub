@@ -1,0 +1,20 @@
+NO ./textures/mur7.xpm
+SO ./textures/mur3.xpm
+WE ./textures/mur.xpm
+EA ./textures/mur6.xpm
+
+F 213,139,73
+C 19,43,162
+
+1
+11
+101
+1001
+10001
+10001
+1N001
+100001
+1000011111 
+1000000001
+100000011 
+11111111 
