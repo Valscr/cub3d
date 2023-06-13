@@ -81,7 +81,7 @@ int	check_wall_map(char **str)
 			return (0);
 		if (!check_wall_map_bis(str, i, j))
 			return (0);
-		if (str[i][ft_strlen_lesspace(str[i])] == '0')
+		if (str[i][ft_strlen_lesspace(str[i])] != '1')
 			return (0);
 		i++;
 	}
