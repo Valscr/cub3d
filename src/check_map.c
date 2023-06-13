@@ -21,7 +21,7 @@ int	check_wall_first_last(char **str)
 	i = 0;
 	while (str[i][j])
 	{
-		if (str[i][j] == '0')
+		if (str[i][j] != '1')
 			return (0);
 		j++;
 	}
@@ -29,7 +29,7 @@ int	check_wall_first_last(char **str)
 	i = count_tab_full(str) - 1;
 	while (str[i][j])
 	{
-		if (str[i][j] == '0')
+		if (str[i][j] != '1')
 			return (0);
 		j++;
 	}
