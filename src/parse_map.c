@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:36:59 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:59:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,18 @@ int	parse_map(int fd, t_data *game)
 
 int	set_map(char **str, t_data *game)
 {
-	int	fd;
+	int		fd;
+	char	*needle;
 
-	fd = 0;
 	game->map = NULL;
-	if (ft_strnstr(str[1], ".cub\0", ft_strlen(str[1]) == 0)
-	{
-		write(2, "Error\nNo correct format map finded (.cub)\n", 41);
-		return (1);
-	}
+	needle = ft_strnstr(str[1], ".cub", ft_strlen(str[1]));
+	while (1)
+		if (ft_strnstr(needle + 1, ".cub", ft_strlen(needle - 1)))
+			needle = ft_strnstr(needle + 1, ".cub", ft_strlen(needle - 1));
+	else
+		break ;
+	if (!needle || *(needle + 4) != '\0')
+		return (write(2, "Error\nNo correct format map (.cub)\n", 35), 1);
 	else
 	{
 		fd = open(str[1], O_RDONLY);
@@ -119,7 +122,7 @@ int	set_map(char **str, t_data *game)
 				return (1);
 		}
 		else
-			return (write(2, "Error : file not found\n", 18), 1);
+			return (write(2, "Error : file not found\n", 23), 1);
 	}
 	return (0);
 }
