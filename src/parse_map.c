@@ -82,7 +82,7 @@ int	parse_map(int fd, t_data *game)
 	if (str == 0)
 	{
 		write(2, "Error : Empty file\n", 20);
-		exit(0);
+		return (0);
 	}
 	if (!check_double_return_line(str))
 		return (free_str(str), write(2, "Error : map not close\n", 23), 0);
@@ -105,7 +105,7 @@ int	set_map(char **str, t_data *game)
 
 	fd = 0;
 	game->map = NULL;
-	if (ft_strnstr(str[1], ".cub", 100) == 0)
+	if (ft_strnstr(str[1], ".cub\0", ft_strlen(str[1]) == 0)
 	{
 		write(2, "Error\nNo correct format map finded (.cub)\n", 41);
 		return (1);
@@ -119,7 +119,7 @@ int	set_map(char **str, t_data *game)
 				return (1);
 		}
 		else
-			return (write(2, "Error : empty map\n", 18), 1);
+			return (write(2, "Error : file not found\n", 18), 1);
 	}
 	return (0);
 }
