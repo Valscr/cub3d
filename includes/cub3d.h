@@ -131,6 +131,7 @@ int				check_wall_map_bis(char **str, int i, int j);
 int				check_wall_map(char **str);
 int				ft_strlen_lesspace(char *str);
 int				find_one(char *str);
+int				find_extension(char *str, char *find);
 int				parse_map_true(char **str, t_data *game);
 int				parse_map(int fd, t_data *game);
 int				set_map(char **str, t_data *game);
