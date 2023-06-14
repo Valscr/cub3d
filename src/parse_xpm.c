@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vescaffr <vescaffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:18:27 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:17:37 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:29:19 by vescaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_xpm_file(char *filename)
 {
 	int	fd;
 
-	if (ft_strnstr(filename, ".xpm", 100) == NULL)
+	if (ft_strnstr(filename, ".xpm", ft_strlen(filename)) == NULL)
 		return (write(2, "Error : No correct format image finded (.xpm)\n",
 				46), 0);
 	fd = open(filename, O_RDONLY);

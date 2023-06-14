@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vescaffr <vescaffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/14 00:59:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/14 11:55:39 by vescaffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include <stdio.h>
 
 int	ft_strlen_less_returnline(char *str)
 {
@@ -99,20 +100,34 @@ int	parse_map(int fd, t_data *game)
 	return (free_tab_str(full), 1);
 }
 
+int find_extension(char *str, char *find)
+{
+	int i;
+	int j;
+
+	if (!str || !find)
+		return (0);
+	i = ft_strlen(str);
+	j = ft_strlen(find);
+	while (i >= 0 && j >= 0)
+	{
+		if (str[i--] != find[j--])
+			return (0);
+	}
+	return (1);
+}
+
+
 int	set_map(char **str, t_data *game)
 {
 	int		fd;
-	char	*needle;
 
 	game->map = NULL;
-	needle = ft_strnstr(str[1], ".cub", ft_strlen(str[1]));
-	while (1)
-		if (ft_strnstr(needle + 1, ".cub", ft_strlen(needle - 1)))
-			needle = ft_strnstr(needle + 1, ".cub", ft_strlen(needle - 1));
-	else
-		break ;
-	if (!needle || *(needle + 4) != '\0')
-		return (write(2, "Error\nNo correct format map (.cub)\n", 35), 1);
+	if (!find_extension(str[1], ".cub"))
+	{
+		write(2, "Error\nNo correct format map finded (.cub)\n", 41);
+		return (1);
+	}
 	else
 	{
 		fd = open(str[1], O_RDONLY);
