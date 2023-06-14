@@ -100,24 +100,6 @@ int	parse_map(int fd, t_data *game)
 	return (free_tab_str(full), 1);
 }
 
-int find_extension(char *str, char *find)
-{
-	int i;
-	int j;
-
-	if (!str || !find)
-		return (0);
-	i = ft_strlen(str);
-	j = ft_strlen(find);
-	while (i >= 0 && j >= 0)
-	{
-		if (str[i--] != find[j--])
-			return (0);
-	}
-	return (1);
-}
-
-
 int	set_map(char **str, t_data *game)
 {
 	int		fd;
