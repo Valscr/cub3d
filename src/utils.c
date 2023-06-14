@@ -73,9 +73,9 @@ int find_extension(char *str, char *find)
 		return (0);
 	i = ft_strlen(str);
 	j = ft_strlen(find);
-	while (i >= 0 && j >= 0)
+	while (j >= 0)
 	{
-		if (str[i--] != find[j--])
+		if (i < 0 || str[i--] != find[j--])
 			return (0);
 	}
 	return (1);
