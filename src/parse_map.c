@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vescaffr <vescaffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:15:15 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/14 11:55:39 by vescaffr         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:40:02 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	set_map(char **str, t_data *game)
 	game->map = NULL;
 	if (!find_extension(str[1], ".cub"))
 	{
-		write(2, "Error\nNo correct format map finded (.cub)\n", 41);
+		write(2, "Error : No correct format map finded (.cub)\n", 45);
 		return (1);
 	}
 	else

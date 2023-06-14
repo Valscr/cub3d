@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:09:37 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/02 00:08:43 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:05:38 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	end(t_data *game)
 	return (0);
 }
 
-int find_extension(char *str, char *find)
+int	find_extension(char *str, char *find)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (!str || !find)
 		return (0);
