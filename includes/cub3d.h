@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vescaffr <vescaffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:37:49 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/12 15:07:49 by vescaffr         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:30:13 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,15 @@ int				find_one(char *str);
 int				check_wall_first_last(char **str);
 int				check_wall_map_bis(char **str, int i, int j);
 int				check_wall_map(char **str);
+int				check_close(char **str, int j, int i);
+int				check_close_close(char **str, int j, int i);
+int				check_close_all(char **str, int j, int i);
+int				check_close_x_left(char **str, int j, int i);
+int				check_close_x_right(char **str, int j, int i);
+int				check_close_y_left(char **str, int j, int i);
+int				check_close_y_right(char **str, int j, int i);
+int				count_y_space(char **str, int j, int i);
+int				count_tab_full_lesspace(char **str, int j, int i);
 int				ft_strlen_lesspace(char *str);
 int				find_one(char *str);
 int				find_extension(char *str, char *find);

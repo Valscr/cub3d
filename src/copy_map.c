@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:35:02 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/02 11:14:54 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:02:19 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	copy_map_bis(int j, int i, t_data *game, char **str)
 				&& str[i][j] != 'N' && str[i][j] != 'W' && str[i][j] != 'S'
 					&& str[i][j] != 'E')
 				return (-1);
-			if (str[i][j] == 'N' || str[i][j] == 'W' || str[i][j] == 'S'
-				|| str[i][j] == 'E')
+			if ((str[i][j] == 'N' || str[i][j] == 'W' || str[i][j] == 'S'
+				|| str[i][j] == 'E') && check_close(str, j, i))
 			{
 				set_pos_player(str[i][j], i, j, game);
 				d++;

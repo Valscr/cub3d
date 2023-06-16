@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:30:35 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/15 00:04:02 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:08:30 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,14 @@ int	check_wall_first_last(char **str)
 	return (1);
 }
 
-int	check_close_x(char **str, int j, int i)
+int	count_y_space(char **str, int j, int i)
 {
-	if ((i == 0 && str[i][j] == ' ')
-		|| (i == count_tab_full(str) - 1 && str[i][j] == ' '))
-		return (0);
-	while (j >= 0)
-	{
-		if (str[i][j] == '1')
-			return (1);
-		j--;
-	}
-	return (0);
+	int	d;
+
+	d = i;
+	while (str[d] && ft_strlen(str[d]) > j && str[d][j] == ' ')
+		d++;
+	return (d);
 }
 
 int	check_wall_map_bis(char **str, int i, int j)
@@ -56,10 +52,7 @@ int	check_wall_map_bis(char **str, int i, int j)
 	{
 		if (str[i][j] == '0' || str[i][j] == ' ')
 		{
-			if (j > ft_strlen_lesspace(str[i - 1])
-				|| j > ft_strlen_lesspace(str[i + 1])
-				|| !check_close_x(str, j, i + 1)
-				|| !check_close_x(str, j, i - 1))
+			if (!check_close(str, j, i))
 				return (0);
 		}
 		j++;

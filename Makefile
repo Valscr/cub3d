@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 13:32:44 by valentin          #+#    #+#              #
-#    Updated: 2023/06/03 01:07:52 by marvin           ###   ########.fr        #
+#    Updated: 2023/06/16 16:08:02 by valentin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = cub3d
 C_FILES = main.c get_next_line.c get_next_line_utils.c utils.c ft_split2.c calculate_point.c \
 			calculate_point_bis.c intersection.c intersection_bis.c check_wall.c free_error.c \
 			key_hook.c parse_map.c parse_texture_color.c parse_xpm.c render.c init.c \
-			render_rect.c check_map.c copy_map.c key_hook_bis.c render_sight.c mini_map.c
+			render_rect.c check_map.c copy_map.c key_hook_bis.c render_sight.c mini_map.c \
+			utils_parse_map.c utils_map.c
 
 SRC_DIR		=	./src/
 
