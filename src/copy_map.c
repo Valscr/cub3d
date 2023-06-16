@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:35:02 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/16 16:02:19 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:43:53 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	copy_map_bis(int j, int i, t_data *game, char **str)
 		i++;
 	}
 	if (d != 1)
-		return (-1);
+		return (write(2, "Error : one player position needed\n", 36), -1);
 	return (i);
 }
 
