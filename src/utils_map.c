@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:06:38 by valentin          #+#    #+#             */
-/*   Updated: 2023/06/16 16:07:53 by valentin         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:47:49 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_close_close(char **str, int j, int i)
 			return (0);
 		x--;
 	}
-	while (j < ft_strlen(str[i]))
+	while (j < ft_strlen_lesspace(str[i]))
 	{
 		if (str[i][j] == '1')
 			break ;
